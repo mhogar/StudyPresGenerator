@@ -1,0 +1,10 @@
+bin/*
+!bin/.gitkeep
+
+output/*
+!output/.gitkeep
+
+src/*
+!src/.gitkeep
+
+questions_answers.tex
