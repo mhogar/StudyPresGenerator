@@ -1,0 +1,26 @@
+\documentclass{beamer}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+
+%Information to be included in the title page:
+\title{\jobname}
+\author{Ryan Stamp}
+\date{\today}
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+<% questions.each_with_index do |qa, index| %>
+\begin{frame}
+\frametitle{Question <%= index + 1 %> of <%= questions.length %>}
+\begin{block}{<%= qa['question'] + "(#{qa['answers'].length})"%>}
+\pause \begin{itemize}
+<% qa['answers'].each do |answer| %>
+\item <%= answer %>
+<% end %>
+\end{itemize}
+\end{block}
+\end{frame}
+<% end %>
+\end{document}
