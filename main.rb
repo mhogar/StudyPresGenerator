@@ -29,5 +29,4 @@ open(outTexFile, 'w') do |f|
 end
 
 #run the latex compiler
-#TODO: fix additional flags
-system("/usr/local/texlive/2019/bin/x86_64-darwin/pdflatex #{outTexFile} --output-directory=output/ -job-name=#{out_name} -aux-directory=bin/")
+system("/usr/local/texlive/2019/bin/x86_64-darwin/pdflatex -jobname=#{out_name} -output-directory=output #{outTexFile}")
