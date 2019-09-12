@@ -46,14 +46,14 @@ end
 out_name = File.basename(filename, File.extname(filename))
 out_dir = (!options[:outdir].nil? ? options[:outdir] : 'output') + '/' + out_name
 random = !options[:random].nil?
-verbose_flag = (!options[:verbose].nil? ? '' : '-interaction=batchmode')
+verbose = !options[:verbose].nil?
 
 #print the application name and input state
 puts 'Study Pres Generator (v1.0.0)'
 puts "Input Filename: '#{filename}'"
 puts "Ouput Directory: '#{out_dir}'"
 puts "Randomize Question Order: #{random}"
-puts "Verbose LaTeX Output: #{verbose_flag == ''}"
+puts "Verbose LaTeX Output: #{verbose}"
 puts "\n"
 
 #read the questions JSON and create the hash
@@ -85,8 +85,20 @@ open(outTexFile, 'w') do |f|
     f.puts template.result
 end
 
+#LaTeX command
+#Update the program to the location of the latex executable. If it is on your path, then you can just use the executable name
+#Update the flag values according to your distribution as they tend to vary
+#Optionally, you can also add new flags to this hash
+latex_command = {
+    program: "/usr/local/texlive/2019/bin/x86_64-darwin/pdflatex",
+    jobname: "-jobname=#{out_name}",
+    outdir: "-output-directory=#{out_dir}",
+    verbose: (verbose ? '' : '-interaction=batchmode'),
+    filename: "#{outTexFile}"
+}
+
 #run the latex compiler
-result = system("/usr/local/texlive/2019/bin/x86_64-darwin/pdflatex #{verbose_flag} -jobname=#{out_name} -output-directory=#{out_dir} #{outTexFile}")
+result = system(latex_command.values.join(' '))
 if (result == true)
     puts "LaTeX completed successfully. Created '#{out_dir}/#{out_name}.pdf'"
 elsif

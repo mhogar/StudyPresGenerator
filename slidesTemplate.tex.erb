@@ -14,7 +14,7 @@
 <% questions.each_with_index do |qa, index| %>
 \begin{frame}
 \frametitle{Question <%= index + 1 %> of <%= questions.length %>}
-\begin{block}{<%= qa['question'] + "(#{qa['answers'].length})"%>}
+\begin{block}{<%= qa['question'] + " (#{qa['answers'].length})"%>}
 \pause \begin{itemize}
 <% qa['answers'].each do |answer| %>
 \item <%= answer %>
